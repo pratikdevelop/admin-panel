@@ -1,27 +1,24 @@
 terraform {
   required_providers {
-    netlify = {
-      source  = "evankirkiles/netlify"
-      version = "0.5.9"
+    render = {
+      source  = "jackall3n/render"
+      version = "1.2.0"
     }
   }
 }
 
-provider "netlify" {
-  token = "nfp_DXWztkLDJj1yhwTk3Cq5i3Cms2JAUdUG5265"
+provider "render" {
+  api_key = "rnd_emfMYWKtcY8x0Xcs0lXVw0sO1DwS"
+  email   = "pratikraut88895@gmail.com"
 }
 
-# Create a new deploy key for this specific website
-
-resource "netlify_site" "check" {
+resource "render_service" "reactjs" {
   name = "admin-panel"
+  repo = "https://github.com/pratikdevelop/admin-panel"
+  type = "static_site"
 
-  repo {
-    command       = "npm run build"
-    deploy_key_id = "nfp_DXWztkLDJj1yhwTk3Cq5i3Cms2JAUdUG5265"
-    dir           = "build"
-    provider      = "github"
-    repo_path     = "pratikdevelop/admin-panel"
-    repo_branch   = "master"
+  static_site_details = {
+    build_command = "npm run build;"
+    publish_path  = "dist"
   }
 }
